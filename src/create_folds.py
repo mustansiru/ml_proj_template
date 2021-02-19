@@ -8,7 +8,9 @@ if __name__ == "__main__":
 
     df = df.sample(frac=1).reset_index(drop=True)
 
-    kf = model_selection.StratifiedKFold(n_splits=5, shuffle=False, random_state=42)
+    # k=5 has shown empirically to yield test error rate estimates that suffer neither 
+    # from excessively high bias nor from very high variance.
+    kf = model_selection.StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
     for fold, (train_idx, val_idx) in enumerate(kf.split(X=df, y=df.target.values)):
         print(len(train_idx), len(val_idx))
